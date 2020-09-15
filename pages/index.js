@@ -2,11 +2,12 @@ import useSWR from 'swr';
 import Layout from '../components/layout';
 import DataRow from '../components/data-row';
 
-const fetcher = (url) => fetch(url).then((r) => r.json);
+const fetcher = (url) => fetch(url).then((r) => r.json());
+
 
 const Home = () => {
 
-  const {data, error} = useSWR('api/customers', fetcher);
+  const {data, error} = useSWR('/api/customers', fetcher);
 
   if(error) return <div>Erro ao carregar lista</div>;
 
@@ -22,27 +23,28 @@ const Home = () => {
           <h4>telefone</h4>
           <h4 className="creditCard">Cartão de crédito</h4>
         </div>
-      </div>
+      
 
-      {data ? (
-        data.map((d) =>(
-          <DataRow
-          key={d.ref['@ref'].id}
-          id={d.ref['@ref'].id}
-          firstName={d.data.firstName}
-          lastName={d.data.lastName}
-          telephone={d.data.telephone}
-          creditCard={d.data.creditCard.number} />
-        ))
-      ) : (
-        <>
-          <DataRow loading />
-          <DataRow loading />
-          <DataRow loading />
-        </>
-      )}
+        {data ? (data.map((d) => (
+            <DataRow
+              key={d.ref['@ref'].id}
+              id={d.ref['@ref'].id}
+              firstName={d.data.firstName}
+              lastName={d.data.lastName}
+              telephone={d.data.telephone}
+              creditCard={d.data.creditCard.number}
+            />
+          ))
+        ) : (
+          <>
+            <DataRow loading />
+            <DataRow loading />
+            <DataRow loading />
+          </>
+        )}
+        </div>
    </Layout>
   );
-}
+};
 
 export default Home;
