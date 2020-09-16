@@ -1,6 +1,7 @@
 import useSWR from 'swr';
 import Layout from '../components/layout';
 import DataRow from '../components/data-row';
+import Link from 'next/link';
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -17,6 +18,10 @@ const Home = () => {
 
       <div className="table">
         <h2>Dados do cliente</h2>
+
+        <Link href="/customers/create">
+          <a className="createNew">Create New Customer</a>
+        </Link>
 
         <div className="headerRow">
           <h4>name</h4>
