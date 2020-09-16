@@ -1,4 +1,5 @@
 import {useRouter} from 'next/router';
+import Link from 'next/link';
 import useSWR from 'swr';
 import Layout from '../../../components/layout';
 
@@ -25,6 +26,12 @@ const Customer = () => {
 
           <p className="num">{data.telephone}</p>
           <p className="num">{data.creditCard.number}</p>
+
+          <div className="buttons">
+            <Link href="/customers/[id]/update" as={`/customers/${id}/update`}>
+              <a className="editButton">Edit</a>
+            </Link>
+          </div>
         </div>
       ) : (
         <div>Carregando...</div>
