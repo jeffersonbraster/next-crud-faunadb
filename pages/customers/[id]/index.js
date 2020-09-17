@@ -11,6 +11,21 @@ const Customer = () => {
 
   const {data, error} = useSWR(`/api/customers/${id}`, fetcher);
 
+  const onClick = async () => {
+    try {
+      const res = await fetch(`/api/customers/${id}/delete`, {
+        method: 'DELETE',
+      });
+      if (res.status === 200) {
+        router.push('/');
+      } else {
+        throw new Error(await res.text());
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   if (error) return <div>failed to load</div>;
 
   return (
@@ -32,6 +47,12 @@ const Customer = () => {
               <a className="editButton">Edit</a>
             </Link>
           </div>
+
+         <div>
+            <button onClick={onClick} className="deleteButton">
+                Delete
+            </button>
+         </div>
         </div>
       ) : (
         <div>Carregando...</div>
